@@ -1,9 +1,11 @@
-class Node():
-    def __init__(self, value = None, next = None):
+
+class Node:
+    def __init__(self, value=None, next=None):
         self.value = value
         self.next = next
 
-class LinkedList():
+
+class LinkedList:
     def __init__(self, array):
         self.head = None
         for value in reversed(array):
@@ -17,16 +19,19 @@ class LinkedList():
             result.append(element.value)
             element = element.next
         return result
-    
+
     def len(self):
         return self.length
 
     def get(self, n):
-        element = self.head
-        while (element != None) and (n > 0):
-            element = element.next
-            n -= 1
-        return element.value
+        if n >= self.length:
+            return None
+        else:
+            element = self.head
+            while (element != None) and (n > 0):
+                element = element.next
+                n -= 1
+            return element.value
 
     def has(self, target):
         element = self.head
@@ -79,6 +84,8 @@ class LinkedList():
             element = element.next
         return starts(element, target_seq.head)
 
+
+# helper function that that takes two Node pointers, and returns True if the linked list sequence1 starts with the values in sequence2
 def starts(sequence1, sequence2):
     while sequence2 != None:
         if (sequence1 == None) or (sequence1.value != sequence2.value):
