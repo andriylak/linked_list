@@ -10,7 +10,6 @@ class LinkedList:
         self.head = None
         for value in reversed(array):
             self.head = Node(value, self.head)
-        self.length = len(array)
 
     def to_list(self):
         result = []
@@ -21,14 +20,19 @@ class LinkedList:
         return result
 
     def len(self):
-        return self.length
+        element = self.head
+        length = 0
+        while element != None:
+            length += 1
+            element = element.next
+        return length
 
     def get(self, n):
-        if n >= self.length:
+        if n >= self.len():
             return None
         else:
             element = self.head
-            while (element != None) and (n > 0):
+            while n > 0:
                 element = element.next
                 n -= 1
             return element.value
@@ -47,18 +51,16 @@ class LinkedList:
             pass
         elif self.head.value == target:
             self.head = element.next
-            self.length -= 1
         else:
             Delete = True
             while (Delete) and (element.next != None):
                 if element.next.value == target:
                     element.next = element.next.next
                     Delete = False
-                    self.length -= 1
                 element = element.next
 
     def rotate(self):
-        if self.length > 1:
+        if self.len() > 1:
             element = self.head
             while element.next.next != None:
                 element = element.next
@@ -77,10 +79,10 @@ class LinkedList:
         return False
 
     def ends_with(self, target_seq):
-        if target_seq.length > self.length:
+        if target_seq.len() > self.len():
             return False
         element = self.head
-        for i in range(self.length - target_seq.length):
+        for i in range(self.len() - target_seq.len()):
             element = element.next
         return starts(element, target_seq.head)
 
@@ -93,3 +95,4 @@ def starts(sequence1, sequence2):
         sequence1 = sequence1.next
         sequence2 = sequence2.next
     return True
+
